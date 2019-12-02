@@ -1,0 +1,27 @@
+---
+- hosts: tech_tuesday
+  gather_facts: false
+  remote_user: root
+
+  tasks:
+  - name: ensure nodejs/npm is installed
+    apk:
+      name: npm
+      state: present
+      update_cache: yes
+  - name: clone app files using git
+    git:
+      repo: https://github.com/render-examples/express-hello-world.git
+      dest: /opt/app
+      clone: yes
+  - name: install pm2 for process management 
+    npm:
+      name: pm2
+      global: yes
+      production: yes
+  - name: install app package dependencies
+    npm:
+      path: /opt/app
+  - name: start app using pm2
+    command: pm2 restart app.js --name ikan chdir=/opt/app
+    ignore_errors: yes

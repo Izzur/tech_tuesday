@@ -1,0 +1,39 @@
+version: '3.3'
+
+services:
+  host_tenggiri:
+    container_name: tenggiri
+    image: ikan_image
+    environment:
+      SSH_ENABLE_ROOT: 'true'
+    ports:
+      - "9122:22"
+      - "9180:3001"
+    volumes:
+      - ./id_rsa.pub:/root/.ssh/authorized_keys:ro
+      - ./keys/:/etc/ssh/keys
+      - ./data/:/data/
+  host_baronang:
+    container_name: baronang
+    image: ikan_image
+    environment:
+      SSH_ENABLE_ROOT: 'true'
+    ports:
+      - "9222:22"
+      - "9280:3001"
+    volumes:
+      - ./id_rsa.pub:/root/.ssh/authorized_keys:ro
+      - ./keys/:/etc/ssh/keys
+      - ./data/:/data/
+  host_gurame:
+    container_name: gurame
+    image: ikan_image
+    environment:
+      SSH_ENABLE_ROOT: 'true'
+    ports:
+      - "9322:22"
+      - "9380:3001"
+    volumes:
+      - ./id_rsa.pub:/root/.ssh/authorized_keys:ro
+      - ./keys/:/etc/ssh/keys
+      - ./data/:/data/
